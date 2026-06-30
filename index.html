@@ -82,6 +82,36 @@
   .langbar button { background:rgba(255,255,255,.12); color:#dfe3ff; border:none; border-radius:10px;
                     padding:6px 12px; font-size:13px; font-weight:800; cursor:pointer; pointer-events:auto; }
   .langbar button.active { background:linear-gradient(180deg,#ffd23f,#ff9f1c); color:#5a2d00; }
+
+  /* Sunny start screen */
+  #startScreen { background:linear-gradient(180deg,#5db5ff 0%,#9fd8ff 55%,#d6f0ff 100%);
+                 backdrop-filter:none; padding:16px; justify-content:flex-start; }
+  .sky-deco { position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:1; }
+  .sky-deco .sun { position:absolute; top:18px; right:24px; width:54px; height:54px; border-radius:50%;
+                   background:#fff3b0; box-shadow:0 0 30px 10px rgba(255,236,150,.7); }
+  .sky-deco .cloud { position:absolute; border-radius:20px; background:rgba(255,255,255,.8); }
+  .sky-deco .bal { position:absolute; width:30px; height:38px; border-radius:50%; opacity:.9; }
+  .sky-deco .bal svg { position:absolute; left:50%; top:100%; transform:translateX(-50%); width:10px; height:18px; }
+  .sky-deco .bal svg path { fill:none; stroke:rgba(0,0,0,.5); stroke-width:1.5; }
+  .start-inner { position:relative; z-index:2; width:100%; max-width:380px; display:flex; flex-direction:column; }
+  .bigtitle { font-size:34px; line-height:1.1; text-align:center; margin:8px 0 16px; overflow-wrap:break-word;
+              text-shadow:0 4px 0 rgba(0,0,0,.18),0 6px 14px rgba(0,0,0,.18); }
+  .tabs { display:flex; gap:6px; background:rgba(255,255,255,.22); border-radius:14px; padding:4px; margin-bottom:14px; }
+  .gtab { flex:1; border:none; border-radius:11px; padding:10px 0; font-size:15px; font-weight:800;
+          cursor:pointer; background:transparent; color:#fff; pointer-events:auto; }
+  .gtab.active { background:#fff; color:#2a1a5a; box-shadow:0 2px 6px rgba(0,0,0,.12); }
+  .gpanel { display:flex; flex-direction:column; text-align:left; }
+  .flabel { font-size:12px; font-weight:800; color:#fff; text-shadow:0 1px 2px rgba(0,0,0,.4); margin:2px 2px 5px; }
+  #countrySelect { -webkit-appearance:none; appearance:none; width:100%; margin-bottom:8px;
+                   background:rgba(255,255,255,.9); border:1.5px solid rgba(255,255,255,.7); border-radius:12px;
+                   padding:12px; font-size:16px; font-weight:700; color:#1f2a44; outline:none; }
+  #startScreen #nameInput { margin:0 0 12px; }
+  .gpanel .legend div { background:rgba(255,255,255,.9); border-radius:10px; padding:8px 10px; color:#2a2a3a; }
+  .start-inner .sub { color:#fff; text-shadow:0 1px 2px rgba(0,0,0,.4); margin-bottom:8px; text-align:center; }
+  .start-inner .best { color:#fff; text-shadow:0 1px 2px rgba(0,0,0,.4); margin-top:12px; text-align:center; }
+  #startScreen .brow { background:rgba(255,255,255,.9); color:#2a2a3a; }
+  #startScreen .brow .nm { color:#2a2a3a; }
+  #startScreen .board .empty { color:#1f2a44; }
   #soundToggle { position:absolute; top:12px; right:12px; z-index:7; background:rgba(0,0,0,.32); border:none;
                  color:#fff; width:40px; height:40px; border-radius:50%; font-size:18px; cursor:pointer; pointer-events:auto; }
   @keyframes pop { 0%{transform:scale(.3)} 60%{transform:scale(1.15)} 100%{transform:scale(1)} }
@@ -113,35 +143,58 @@
 
   <!-- Start -->
   <div class="overlay" id="startScreen">
-    <div class="panel">
+    <div class="sky-deco" aria-hidden="true">
+      <div class="sun"></div>
+      <div class="cloud" style="top:14%; left:-6%; width:90px; height:34px;"></div>
+      <div class="cloud" style="top:30%; right:2%; width:72px; height:28px;"></div>
+      <div class="bal" style="top:44%; left:8%; background:#ff5a5f;"><svg viewBox="0 0 10 20"><path d="M5 0 Q9 6 5 10 Q1 15 5 20"/></svg></div>
+      <div class="bal" style="top:50%; right:10%; background:#4ade80;"><svg viewBox="0 0 10 20"><path d="M5 0 Q9 6 5 10 Q1 15 5 20"/></svg></div>
+      <div class="bal" style="top:62%; left:14%; background:#a78bfa;"><svg viewBox="0 0 10 20"><path d="M5 0 Q9 6 5 10 Q1 15 5 20"/></svg></div>
+      <div class="bal" style="bottom:9%; left:6%; background:#facc15;"><svg viewBox="0 0 10 20"><path d="M5 0 Q9 6 5 10 Q1 15 5 20"/></svg></div>
+      <div class="bal" style="bottom:13%; right:8%; background:#fb923c;"><svg viewBox="0 0 10 20"><path d="M5 0 Q9 6 5 10 Q1 15 5 20"/></svg></div>
+      <div class="bal" style="bottom:8%; right:28%; background:#38bdf8;"><svg viewBox="0 0 10 20"><path d="M5 0 Q9 6 5 10 Q1 15 5 20"/></svg></div>
+    </div>
+    <div class="start-inner">
       <div class="langbar" id="langbar">
         <button data-lang="en">EN</button>
         <button data-lang="es">ES</button>
         <button data-lang="zh">中文</button>
         <button data-lang="tr">TR</button>
       </div>
-      <h1 id="startTitle">🎈 Balon Patlat</h1>
-      <div class="sub" id="startTagline">Renkli balonları patlat, puan topla, levelleri geç!</div>
-      <div class="legend">
-        <div><span class="dot" style="background:#ff5a5f"></span> <span id="leg1">...</span></div>
-        <div><span class="dot" style="background:linear-gradient(45deg,#ff5a5f,#ffd23f,#4ade80,#38bdf8,#a78bfa)"></span> <span id="leg2">...</span></div>
-        <div><span class="dot" style="background:#1a1a1a"></span> <span id="leg3">...</span></div>
-        <div><span class="dot" style="background:#22d3ee"></span> <span id="leg4">...</span></div>
-      </div>
-      <input id="nameInput" maxlength="12" placeholder="Adını yaz" autocomplete="off" />
-      <div class="best" id="bestStart">En yüksek: 0</div>
-      <button class="btn" id="playBtn">OYNA</button>
-      <button class="btn alt small" id="boardBtn">🏆 Sıralama</button>
-    </div>
-  </div>
+      <h1 id="startTitle" class="bigtitle">🎈 Balonları Patlat</h1>
 
-  <!-- Leaderboard -->
-  <div class="overlay hidden" id="boardScreen">
-    <div class="panel">
-      <h1 style="font-size:30px" id="boardTitle">🏆 Sıralama</h1>
-      <div class="sub" id="boardSub">En yüksek puanlar</div>
-      <div id="boardList" class="board"></div>
-      <button class="btn" id="boardBackBtn">GERİ</button>
+      <div class="tabs" id="startTabs">
+        <button data-tab="play" class="gtab">Oyna</button>
+        <button data-tab="rules" class="gtab">Kurallar</button>
+        <button data-tab="board" class="gtab">Liderlik</button>
+      </div>
+
+      <div class="tabwrap">
+        <div data-panel="play" class="gpanel">
+          <div class="flabel" id="nameLbl">Oyuncu adı</div>
+          <input id="nameInput" maxlength="12" placeholder="Adını yaz" autocomplete="off" />
+          <div class="flabel" id="countryLbl">Ülke</div>
+          <select id="countrySelect"></select>
+          <button class="btn" id="playBtn">OYNA</button>
+          <div class="best" id="bestStart">En yüksek: 0</div>
+        </div>
+
+        <div data-panel="rules" class="gpanel" style="display:none;">
+          <div class="legend">
+            <div><span class="dot" style="background:#ff5a5f"></span> <span id="leg1">...</span></div>
+            <div><span class="dot" style="background:linear-gradient(45deg,#ff5a5f,#ffd23f,#4ade80,#38bdf8,#a78bfa)"></span> <span id="leg2">...</span></div>
+            <div><span class="dot" style="background:#1a1a1a"></span> <span id="leg3">...</span></div>
+            <div><span class="dot" style="background:#22d3ee"></span> <span id="leg4">...</span></div>
+            <div><span class="dot" style="background:#fb923c"></span> <span id="leg5">...</span></div>
+            <div><span class="dot" style="background:#e23b6d"></span> <span id="leg6">...</span></div>
+          </div>
+        </div>
+
+        <div data-panel="board" class="gpanel" style="display:none;">
+          <div class="sub" id="boardSub2">Dünya Sıralaması</div>
+          <div id="boardList" class="board"></div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -187,7 +240,7 @@ const SUPA_OK = !!(SUPABASE_URL && SUPABASE_KEY);
 
 // ---------- i18n (English, Español, 中文, Türkçe) ----------
 const I18N = {
-  en:{ title:"🎈 Pop the Balloons", tagline:"Pop colorful balloons, score points, clear levels!",
+  en:{ title:"🎈 BalloonPopper", tagline:"Pop colorful balloons, score points, clear levels!",
     leg1:"Hit target-color balloons → bonus points", leg2:"Rainbow → pops every balloon",
     leg3:"Black balloon → DON'T touch! Level score wiped", leg4:"⏱ Clock → time · ❄️ Slow · 💣 Bomb",
     play:"PLAY", board:"🏆 Leaderboard", boardSub:"Top scores worldwide", back:"BACK",
@@ -202,8 +255,10 @@ const I18N = {
     rainbow:"RAINBOW!", wiped:"LEVEL SCORE WIPED!", tPlus:"+6 SEC ⏱", slow:"SLOW ❄️", bomb:"BOMB 💣",
     combo:"COMBO x{m}!", empty:"No scores yet. Be the first!", loading:"Loading…",
     localNote:"(offline — local scores)", themeNames:["Sunny","Cloudy","Sunset","Night","Snowy"],
+    tabPlay:"Play", tabRules:"Rules", tabBoard:"Ranking", nameLbl:"Player name", countryLbl:"Country",
+    worldRanking:"World Ranking", leg5:"🔥 Frenzy: rapid pops = 2x points", leg6:"👑 Every 5th level is a Boss fight",
     colors:["Red","Blue","Green","Yellow","Purple","Orange"] },
-  es:{ title:"🎈 Revienta Globos", tagline:"¡Revienta globos de colores, suma puntos y supera niveles!",
+  es:{ title:"🎈 BalloonPopper", tagline:"¡Revienta globos de colores, suma puntos y supera niveles!",
     leg1:"Golpea los globos del color objetivo → puntos extra", leg2:"Arcoíris → revienta todos los globos",
     leg3:"Globo negro → ¡NO lo toques! Pierdes los puntos del nivel", leg4:"⏱ Reloj → tiempo · ❄️ Lento · 💣 Bomba",
     play:"JUGAR", board:"🏆 Clasificación", boardSub:"Mejores puntajes del mundo", back:"ATRÁS",
@@ -218,8 +273,10 @@ const I18N = {
     rainbow:"¡ARCOÍRIS!", wiped:"¡PUNTOS BORRADOS!", tPlus:"+6 SEG ⏱", slow:"LENTO ❄️", bomb:"BOMBA 💣",
     combo:"COMBO x{m}!", empty:"Aún no hay puntajes. ¡Sé el primero!", loading:"Cargando…",
     localNote:"(sin conexión — puntajes locales)", themeNames:["Soleado","Nublado","Atardecer","Noche","Nevado"],
+    tabPlay:"Jugar", tabRules:"Reglas", tabBoard:"Ranking", nameLbl:"Nombre", countryLbl:"País",
+    worldRanking:"Clasificación mundial", leg5:"🔥 Frenzy: golpes rápidos = 2x puntos", leg6:"👑 Cada nivel 5 es un Jefe",
     colors:["Rojo","Azul","Verde","Amarillo","Morado","Naranja"] },
-  zh:{ title:"🎈 戳气球", tagline:"戳破彩色气球，得分并通关！",
+  zh:{ title:"🎈 BalloonPopper", tagline:"戳破彩色气球，得分并通关！",
     leg1:"击中目标颜色气球 → 额外得分", leg2:"彩虹 → 戳破所有气球",
     leg3:"黑色气球 → 别碰！本关得分清零", leg4:"⏱ 时钟 → 加时 · ❄️ 减速 · 💣 炸弹",
     play:"开始", board:"🏆 排行榜", boardSub:"全球最高分", back:"返回",
@@ -234,8 +291,10 @@ const I18N = {
     rainbow:"彩虹！", wiped:"得分清零！", tPlus:"+6秒 ⏱", slow:"减速 ❄️", bomb:"炸弹 💣",
     combo:"连击 x{m}!", empty:"还没有分数，来当第一名！", loading:"加载中…",
     localNote:"（离线 — 本地分数）", themeNames:["晴天","多云","日落","夜晚","下雪"],
+    tabPlay:"开始", tabRules:"规则", tabBoard:"排行榜", nameLbl:"名字", countryLbl:"国家",
+    worldRanking:"全球排名", leg5:"🔥 Frenzy：连续戳破 = 2倍得分", leg6:"👑 每第5关是Boss战",
     colors:["红色","蓝色","绿色","黄色","紫色","橙色"] },
-  tr:{ title:"🎈 Balon Patlat", tagline:"Renkli balonları patlat, puan topla, levelleri geç!",
+  tr:{ title:"🎈 Balonları Patlat", tagline:"Renkli balonları patlat, puan topla, levelleri geç!",
     leg1:"Hedef renk balonları vur → ekstra puan", leg2:"Gökkuşağı → tüm balonları patlatır",
     leg3:"Siyah balon → DOKUNMA! Level puanın silinir", leg4:"⏱ Saat → süre · ❄️ Yavaşlat · 💣 Bomba",
     play:"OYNA", board:"🏆 Sıralama", boardSub:"Dünya genelinde en yüksek puanlar", back:"GERİ",
@@ -250,6 +309,8 @@ const I18N = {
     rainbow:"GÖKKUŞAĞI!", wiped:"LEVEL PUANI SİLİNDİ!", tPlus:"+6 SANİYE ⏱", slow:"YAVAŞLAT ❄️", bomb:"BOMBA 💣",
     combo:"COMBO x{m}!", empty:"Henüz puan yok. İlk sen ol!", loading:"Yükleniyor…",
     localNote:"(çevrimdışı — yerel puanlar)", themeNames:["Güneşli","Bulutlu","Gün Batımı","Gece","Karlı"],
+    tabPlay:"Oyna", tabRules:"Kurallar", tabBoard:"Liderlik", nameLbl:"Oyuncu adı", countryLbl:"Ülke",
+    worldRanking:"Dünya Sıralaması", leg5:"🔥 Frenzy: art arda patlat = 2x puan", leg6:"👑 Her 5. level Boss savaşı",
     colors:["Kırmızı","Mavi","Yeşil","Sarı","Mor","Turuncu"] }
 };
 function detectLang(){
@@ -378,7 +439,19 @@ let frenzyCharge=0, frenzyMax=22, frenzyActive=false, frenzyUntil=0, baseSpawnGa
 let boss=null, bossRespawn=0, isBossLevel=false;
 // ---------- Player + global leaderboard (Supabase, with local fallback) ----------
 let playerName = localStorage.getItem('balonName') || '';
+let playerCountry = localStorage.getItem('balonCountry') || '';
 let myEntryId = null;
+const COUNTRIES="AF AL DZ AD AO AG AR AM AU AT AZ BS BH BD BB BY BE BZ BJ BT BO BA BW BR BN BG BF BI KH CM CA CV CF TD CL CN CO KM CG CD CR CI HR CU CY CZ DK DJ DM DO EC EG SV GQ ER EE SZ ET FJ FI FR GA GM GE DE GH GR GD GT GN GW GY HT HN HU IS IN ID IR IQ IE IL IT JM JP JO KZ KE KI KW KG LA LV LB LS LR LY LI LT LU MG MW MY MV ML MT MH MR MU MX FM MD MC MN ME MA MZ MM NA NR NP NL NZ NI NE NG KP MK NO OM PK PW PA PG PY PE PH PL PT QA RO RU RW KN LC VC WS SM ST SA SN RS SC SL SG SK SI SB SO ZA KR SS ES LK SD SR SE CH SY TW TJ TZ TH TL TG TO TT TN TR TM TV UG UA AE GB US UY UZ VU VA VE VN YE ZM ZW".split(' ');
+function flagOf(cc){ if(!cc||cc.length!==2) return '🌐';
+  return cc.toUpperCase().replace(/./g,c=>String.fromCodePoint(127397+c.charCodeAt(0))); }
+function buildCountrySelect(){
+  const sel=document.getElementById('countrySelect'); if(!sel) return;
+  let dn=null; try{ dn=new Intl.DisplayNames([LANG],{type:'region'}); }catch(e){}
+  const list=COUNTRIES.map(cc=>({cc, name:(dn&&dn.of(cc))||cc})).sort((a,b)=>a.name.localeCompare(b.name,LANG));
+  const cur=playerCountry;
+  sel.innerHTML='<option value="">'+ '🌐 —' +'</option>'+
+    list.map(o=>'<option value="'+o.cc+'"'+(o.cc===cur?' selected':'')+'>'+flagOf(o.cc)+' '+esc(o.name)+'</option>').join('');
+}
 function supaH(){ return {apikey:SUPABASE_KEY, Authorization:'Bearer '+SUPABASE_KEY}; }
 function loadBoard(){ try{ return JSON.parse(localStorage.getItem('balonBoard')||'[]'); }catch(e){ return []; } }
 function saveBoard(b){ localStorage.setItem('balonBoard', JSON.stringify(b)); }
@@ -390,7 +463,7 @@ async function recordScore(){
   const board=loadBoard();
   const lid='e'+Date.now()+Math.floor(Math.random()*1000);
   myEntryId=lid;
-  board.push({ id:lid, name:nm, score:score, level:level, date:Date.now() });
+  board.push({ id:lid, name:nm, score:score, level:level, country:playerCountry, date:Date.now() });
   board.sort((a,b)=> b.score-a.score || b.level-a.level || a.date-b.date);
   saveBoard(board.slice(0,100));
   // push to the global board
@@ -398,13 +471,13 @@ async function recordScore(){
     try{
       const r=await fetch(SUPABASE_URL+'/rest/v1/scores',{ method:'POST',
         headers:Object.assign({'Content-Type':'application/json',Prefer:'return=representation'},supaH()),
-        body:JSON.stringify({ name:nm, score:score, level:level, lang:LANG }) });
+        body:JSON.stringify({ name:nm, score:score, level:level, lang:LANG, country:playerCountry||null }) });
       if(r.ok){ const j=await r.json(); if(j&&j[0]&&j[0].id!=null) myEntryId=j[0].id; }
     }catch(e){ /* stay on local */ }
   }
 }
 async function fetchTop(limit){
-  const r=await fetch(SUPABASE_URL+'/rest/v1/scores?select=id,name,score,level&order=score.desc,level.desc,created_at.asc&limit='+limit,
+  const r=await fetch(SUPABASE_URL+'/rest/v1/scores?select=id,name,score,level,country&order=score.desc,level.desc,created_at.asc&limit='+limit,
     { headers:supaH() });
   if(!r.ok) throw new Error('http'); return await r.json();
 }
@@ -427,7 +500,7 @@ async function showBoard(el, limit, afterGame){
     if(online){ try{ idx=await fetchRank(score); }catch(e){ idx=list.length; } }
     else { const lb=loadBoard(); idx=lb.findIndex(e=>String(e.id)===String(myEntryId)); if(idx<0) idx=lb.length; }
     rows+='<div class="brow" style="opacity:.5;justify-content:center">···</div>';
-    rows+=row({id:myEntryId,name:(playerName||'Oyuncu'),score:score,level:level}, idx, myEntryId);
+    rows+=row({id:myEntryId,name:(playerName||'Oyuncu'),score:score,level:level,country:playerCountry}, idx, myEntryId);
   }
   if(!online){ rows+='<div class="empty">'+t('localNote')+'</div>'; }
   el.innerHTML=rows;
@@ -435,8 +508,9 @@ async function showBoard(el, limit, afterGame){
 function row(e,i,hid){
   const medal = i===0?'🥇':i===1?'🥈':i===2?'🥉':(i+1);
   const me = String(e.id)===String(hid) ? ' me' : '';
+  const flag = e.country ? flagOf(e.country)+' ' : '';
   return '<div class="brow'+me+'"><span class="rank">'+medal+'</span>'+
-    '<span class="nm">'+esc(e.name)+'</span>'+
+    '<span class="nm">'+flag+esc(e.name)+'</span>'+
     '<span class="lv">Lv '+e.level+'</span>'+
     '<span class="pts">'+e.score+'</span></div>';
 }
@@ -446,15 +520,20 @@ function esc(s){ return String(s).replace(/[<>&]/g,c=>({'<':'&lt;','>':'&gt;','&
 function applyI18n(){
   try{ document.documentElement.lang=LANG; }catch(e){}
   const set=(id,val)=>{ const e=document.getElementById(id); if(e) e.textContent=val; };
-  set('startTitle',t('title')); set('startTagline',t('tagline'));
-  set('leg1',t('leg1')); set('leg2',t('leg2')); set('leg3',t('leg3')); set('leg4',t('leg4'));
-  set('playBtn',t('play')); set('boardBtn',t('board'));
-  set('boardTitle',t('board')); set('boardSub',t('boardSub')); set('boardBackBtn',t('back'));
+  set('startTitle',t('title'));
+  set('leg1',t('leg1')); set('leg2',t('leg2')); set('leg3',t('leg3'));
+  set('leg4',t('leg4')); set('leg5',t('leg5')); set('leg6',t('leg6'));
+  set('playBtn',t('play'));
+  set('nameLbl',t('nameLbl')); set('countryLbl',t('countryLbl')); set('boardSub2',t('worldRanking'));
   set('levelDoneLbl',t('levelDone')); set('nextBtn',t('next'));
   set('totalScoreLbl',t('totalScore')); set('rankingLbl',t('ranking')); set('retryBtn',t('retry'));
   set('lvScoreLbl',t('lvScore')); set('timeLbl',t('time'));
   set('bestStart',t('best')+best);
+  // tab labels
+  const tabMap={play:'tabPlay',rules:'tabRules',board:'tabBoard'};
+  document.querySelectorAll('#startTabs .gtab').forEach(b=>{ b.textContent=t(tabMap[b.getAttribute('data-tab')]); });
   const inp=document.getElementById('nameInput'); if(inp) inp.placeholder=t('namePh');
+  buildCountrySelect();
   const btns=document.querySelectorAll('#langbar button');
   for(const b of btns) b.classList.toggle('active', b.getAttribute('data-lang')===LANG);
 }
@@ -911,9 +990,18 @@ function gameOver(reason){
 }
 
 // ---------- Overlay control ----------
-const SCREENS=['startScreen','boardScreen','levelScreen','overScreen'];
+const SCREENS=['startScreen','levelScreen','overScreen'];
 function show(id){ SCREENS.forEach(s=> document.getElementById(s).classList.toggle('hidden', s!==id)); }
 function hideAll(){ SCREENS.forEach(s=> document.getElementById(s).classList.add('hidden')); }
+
+// start-screen tabs
+function showStartTab(name){
+  document.querySelectorAll('#startScreen .gpanel').forEach(p=>{
+    p.style.display = p.getAttribute('data-panel')===name?'flex':'none'; });
+  document.querySelectorAll('#startTabs .gtab').forEach(b=>{
+    b.classList.toggle('active', b.getAttribute('data-tab')===name); });
+  if(name==='board') showBoard(document.getElementById('boardList'), 15, false);
+}
 
 function startLevel(n){
   balloons=[]; particles=[]; floaters=[]; comboCount=0;
@@ -932,15 +1020,20 @@ function newGame(){
 // init name field + language
 (function(){ const inp=document.getElementById('nameInput'); if(playerName) inp.value=playerName; })();
 applyI18n();
+showStartTab('play');
 
 const langBtns=document.querySelectorAll('#langbar button');
 for(const b of langBtns) b.onclick=()=> setLang(b.getAttribute('data-lang'));
 
+document.querySelectorAll('#startTabs .gtab').forEach(b=>
+  b.onclick=()=> showStartTab(b.getAttribute('data-tab')));
+
+const csel=document.getElementById('countrySelect');
+if(csel) csel.onchange=()=>{ playerCountry=csel.value; localStorage.setItem('balonCountry',playerCountry); };
+
 document.getElementById('playBtn').onclick=()=>{ audio(); newGame(); };
 document.getElementById('retryBtn').onclick=()=>{ audio(); newGame(); };
 document.getElementById('nextBtn').onclick=()=>{ audio(); startLevel(level+1); };
-document.getElementById('boardBtn').onclick=()=>{ showBoard(document.getElementById('boardList'), 15, false); show('boardScreen'); };
-document.getElementById('boardBackBtn').onclick=()=>{ show('startScreen'); };
 
 })();
 </script>
