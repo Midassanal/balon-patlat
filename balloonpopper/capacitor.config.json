@@ -1,0 +1,8 @@
+{
+  "appId": "com.midassanal.balloonpopper",
+  "appName": "BalloonPopper",
+  "webDir": "www",
+  "android": {
+    "backgroundColor": "#5db5ffff"
+  }
+}
